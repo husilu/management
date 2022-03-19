@@ -12,7 +12,7 @@
         </el-col>
       </el-form-item>
        <el-form-item>
-        <el-button type="primary" @click="onSubmit">登录</el-button>
+        <el-button type="primary" @click="onSubmit" :loading="loading">登录</el-button>
       </el-form-item>
       <el-form-item>
         <span>用户名: admin</span>
@@ -23,23 +23,34 @@
 </template>
 
 <script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
+
 const USERNAME = 'admin'
 const PASSWORD = 'admin'
-import { reactive } from 'vue'
 
 const form = reactive({
   username: '',
   password: ''
 })
 
+const loading = ref(false)
 const onSubmit = () => {
-  if (form.value === 'admin' && form.password === 'admin') {
-    this.$message({
+  if (form.username === USERNAME && form.password === PASSWORD) {
+    ElMessage({
       message: '登录成功',
       type: 'success',
     })
+    let redirect = route.query.redirect || '/'
+    if (typeof redirect !== 'string') {
+      redirect = '/'
+    }
+    router.replace(redirect)
   } else {
-    this.$message.error('登录信息有误!')
+    ElMessage.error('登录信息有误!')
   }
 }
 </script>
