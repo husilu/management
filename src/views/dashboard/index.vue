@@ -1,13 +1,11 @@
 <template>
-  <Layout>
-  </Layout>
+  <div>dashboard</div>
 </template>
 
-<script>
-import Layout from '@/components/layout'
+<script lang="ts">
 export default {
   components: {
-    Layout
+  
   }
 }
 </script>
