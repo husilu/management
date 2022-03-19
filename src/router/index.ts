@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import layout from '@/components/layout/index.vue'
+import siglePage from './siglepage';
+import form from './form';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,6 +21,8 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import ( /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue")
       },
+      ...siglePage,
+      ...form
     ]
   },
   {
