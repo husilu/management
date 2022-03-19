@@ -8,32 +8,40 @@
       </el-form-item>
       <el-form-item label="密码">
         <el-col :span="22">
-          <el-input v-model="form.password" />
+          <el-input v-model="form.password" type='password'/>
         </el-col>
       </el-form-item>
        <el-form-item>
         <el-button type="primary" @click="onSubmit">登录</el-button>
       </el-form-item>
+      <el-form-item>
+        <span>用户名: admin</span>
+        <span>密码: admin</span>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      form: {
-        username: "",
-        password: ""
-      }
-    };
-  },
-  methods: {
-    onSubmit() {
-      console.log('login')
-    }
+<script lang="ts" setup>
+const USERNAME = 'admin'
+const PASSWORD = 'admin'
+import { reactive } from 'vue'
+
+const form = reactive({
+  username: '',
+  password: ''
+})
+
+const onSubmit = () => {
+  if (form.value === 'admin' && form.password === 'admin') {
+    this.$message({
+      message: '登录成功',
+      type: 'success',
+    })
+  } else {
+    this.$message.error('登录信息有误!')
   }
-};
+}
 </script>
 
 <style scoped lang='scss'>
