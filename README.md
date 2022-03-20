@@ -19,7 +19,9 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+Vue的Ts [相关配置](https://v3.cn.vuejs.org/guide/typescript-support.html)
+
+Vuex的Ts [相关配置](https://vuex.vuejs.org/zh/guide/typescript-support.html)
+
+注意: 关闭Vetur之后再开启Volar避免冲突
+
