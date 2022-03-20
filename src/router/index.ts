@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import layout from '@/components/layout/index.vue'
 import siglePage from './siglepage';
 import form from './form';
+import { getItem } from '@/utils/storage';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/login',
-    name: 'home',
+    name: 'login',
     component: () => import('../views/login/index.vue')
   },
 ]
@@ -35,6 +36,21 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name == 'login') {
+    next()
+  }
+  else {
+    if (getItem('user')) {
+      next()
+    } else {
+      next({
+        name: 'login'
+      })
+    }
+  }
 })
 
 export default router

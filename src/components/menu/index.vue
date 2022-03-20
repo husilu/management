@@ -26,8 +26,9 @@
 </template>
 
 <script lang="ts" setup>
-import store from "@/store";
+import { useStore } from "@/store";
 import { computed } from "@vue/reactivity";
+const store = useStore()
 const isCollapse = computed(() => store.state.isCollapse);
 const menuData = [
   { title: "系统首页", url: "/"},

@@ -26,9 +26,10 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
+import { useStore } from '@/store';
 const router = useRouter()
 const route = useRoute()
-
+const store = useStore()
 const USERNAME = 'admin'
 const PASSWORD = 'admin'
 
@@ -39,18 +40,25 @@ const form = reactive({
 
 const loading = ref(false)
 const onSubmit = () => {
+  loading.value = true
   if (form.username === USERNAME && form.password === PASSWORD) {
     ElMessage({
       message: '登录成功',
       type: 'success',
+    })
+    store.commit('SET_USER', {
+      ...form,
+      role: form.username === 'admin' ? 'admin' : 'user'
     })
     let redirect = route.query.redirect || '/'
     if (typeof redirect !== 'string') {
       redirect = '/'
     }
     router.replace(redirect)
+    loading.value = false
   } else {
     ElMessage.error('登录信息有误!')
+    loading.value = false
   }
 }
 </script>
